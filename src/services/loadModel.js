@@ -1,5 +1,11 @@
-const tf = require('@tensorflow/tfjs-node');
-async function loadModel() {
-    return tf.loadGraphModel('https://storage.googleapis.com/ml-bucket-rifdah-project/model.json');
+const { Firestore } = require('@google-cloud/firestore');
+
+async function getAllData() {
+    const db = new Firestore();
+    const predictCollection = db.collection('predictions');
+    
+    const allData = await predictCollection.get();
+    return allData;
 }
-module.exports = loadModel;
+
+module.exports = getAllData;
